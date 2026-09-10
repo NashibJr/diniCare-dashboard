@@ -3,47 +3,36 @@ import {
   Boxes,
   ClipboardList,
   FolderTree,
-  Headphones,
   LayoutDashboard,
   LogOut,
-  PackageSearch,
   Percent,
   Settings,
-  Star,
   Users,
   WalletCards,
   X,
-  History,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-export default function Sidebar({
-  open,
-  onClose,
-}: {
+const items = [
+  [LayoutDashboard, "Dashboard", "/"],
+  [ClipboardList, "Orders", "/orders"],
+  [Boxes, "Products", "/products"],
+  [FolderTree, "Categories", "/categories"],
+  [Users, "Customers", "/customers"],
+  [Percent, "Coupons", "/coupons"],
+  [BarChart3, "Analytics", "/analytics"],
+  [WalletCards, "Payments", "/payments"],
+  [Settings, "Settings", "/settings"],
+] as const;
+
+type SidebarTypes = {
   open: boolean;
   onClose: () => void;
-}) {
-  const items = [
-    [LayoutDashboard, "Dashboard", "/"],
-    [ClipboardList, "Orders", "/orders"],
-    [Boxes, "Products", "/products"],
-    [FolderTree, "Categories", "/categories"],
-    [Users, "Customers", "/customers"],
-    // [PackageSearch, "Inventory", "/inventory"],
-    [Percent, "Coupons", "/coupons"],
-    [BarChart3, "Analytics", "/analytics"],
-    // [Star, "Reviews", "/reviews"],
-    // [Truck, "Shipping", "/shipping"],
-    [WalletCards, "Payments", "/payments"],
-    // [Headphones, "Support", "/support"],
-    // [UserCog, "Users & Roles", "/users"],
-    // [ShieldCheck, "Permissions", "/roles"],
-    // [FileText, "Reports", "/reports"],
-    // [History, "Audit logs", "/audit-logs"],
-    // [Bell, "Notifications", "/notifications"],
-    [Settings, "Settings", "/settings"],
-  ] as const;
+};
+
+export default function Sidebar({ open, onClose }: SidebarTypes) {
+  const navigate = useNavigate();
+
   return (
     <>
       <button
@@ -83,7 +72,13 @@ export default function Sidebar({
           ))}
         </nav>
         <div className="border-t border-white/10 p-3">
-          <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-400 hover:bg-white/5 hover:text-white">
+          <button
+            className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-400 hover:bg-white/5 hover:text-white"
+            onClick={() => {
+              localStorage.clear();
+              navigate("/login");
+            }}
+          >
             <LogOut size={18} />
             Logout
           </button>
