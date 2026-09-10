@@ -1,6 +1,7 @@
 import Api from "..";
 import {
   Category,
+  Coupon,
   DeleteUpdateResponse,
   GeneralCreate,
   GeneralQuery,
@@ -82,6 +83,12 @@ class Actions {
     await this.api.get(
       `/orders/get?page=${page}&limit=${limit}&customer=${customerId}`,
     );
+
+  public getCoupons = async (
+    page: number = 1,
+    limit: number = 100,
+  ): Promise<GeneralQuery<Coupon>> =>
+    await this.api.get(`/trcs/coupon/all?limit=${limit}&page=${page}`);
 }
 
 const actions = new Actions();

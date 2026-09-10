@@ -158,3 +158,16 @@ export type DeleteUpdateResponse = {
   message?: string;
   error?: string;
 };
+
+export interface Coupon {
+  _id: string;
+  code: string;
+  couponType: string;
+  value: string;
+  usageLimit: number;
+  usageCount: number;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}

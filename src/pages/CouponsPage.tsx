@@ -1,9 +1,115 @@
-import {Plus} from "lucide-react";
-import {useState} from "react";
+import { Plus } from "lucide-react";
+import { useState } from "react";
 import PageHeader from "../components/common/PageHeader";
 import Button from "../components/ui/Button";
 import Modal from "../components/ui/Modal";
 import Input from "../components/ui/Input";
 import StatusBadge from "../components/common/StatusBadge";
+import { useQuery } from "@tanstack/react-query";
+import actions from "../api/actions/actions";
+import Suspense from "../components/common/Suspense";
 
-export default function CouponsPage(){const[open,setOpen]=useState(false);const coupons=[{code:"WELCOME10",discount:"10% off",usage:"120 / 500",status:"Active"},{code:"FREESHIP",discount:"Free shipping",usage:"84 / 250",status:"Active"},{code:"SUMMER20",discount:"20% off",usage:"210 / 300",status:"Active"},{code:"FLASH25",discount:"25% off",usage:"300 / 300",status:"Expired"}];return <><PageHeader title="Coupons & promotions" subtitle="Create offers, set usage rules and track campaign adoption." actions={<Button onClick={()=>setOpen(true)}><Plus size={16}/>Create coupon</Button>}/><div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">{coupons.map(coupon=><div key={coupon.code} className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm"><div className="flex items-start justify-between gap-3"><div><div className="font-black tracking-wide">{coupon.code}</div><div className="mt-1 text-sm text-primary-500">{coupon.discount}</div></div><StatusBadge status={coupon.status}/></div><div className="mt-6 text-xs text-gray-400">Usage</div><div className="mt-1 text-sm font-bold">{coupon.usage}</div><div className="mt-4 flex gap-2"><Button size="sm" variant="outline" className="flex-1">Edit</Button><Button size="sm" variant="ghost">Disable</Button></div></div>)}</div><Modal open={open} onOpenChange={setOpen} title="Create coupon"><div className="grid gap-3"><Input placeholder="Coupon code"/><div className="grid grid-cols-2 gap-3"><select className="h-10 rounded-xl border border-gray-200 px-3 text-sm"><option>Percentage</option><option>Fixed amount</option><option>Free shipping</option></select><Input type="number" placeholder="Value"/></div><div className="grid grid-cols-2 gap-3"><Input type="date"/><Input type="date"/></div><Input type="number" placeholder="Usage limit"/><Button onClick={()=>setOpen(false)}>Create coupon</Button></div></Modal></>}
+export default function CouponsPage() {
+  const [open, setOpen] = useState(false);
+  const coupons = [
+    {
+      code: "WELCOME10",
+      discount: "10% off",
+      usage: "120 / 500",
+      status: "Active",
+    },
+    {
+      code: "FREESHIP",
+      discount: "Free shipping",
+      usage: "84 / 250",
+      status: "Active",
+    },
+    {
+      code: "SUMMER20",
+      discount: "20% off",
+      usage: "210 / 300",
+      status: "Active",
+    },
+    {
+      code: "FLASH25",
+      discount: "25% off",
+      usage: "300 / 300",
+      status: "Expired",
+    },
+  ];
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["get-coupons"],
+    queryFn: async () => {
+      const response = await actions.getCoupons();
+
+      return Array.isArray(response.data) ? response.data : [];
+    },
+  });
+
+  return (
+    <>
+      <PageHeader
+        title="Coupons & promotions"
+        subtitle="Create offers, set usage rules and track campaign adoption."
+        actions={
+          <Button onClick={() => setOpen(true)}>
+            <Plus size={16} />
+            Create coupon
+          </Button>
+        }
+      />
+      <Suspense isLoading={isLoading}>
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {data?.map((coupon) => (
+            <div
+              key={coupon.code}
+              className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <div className="font-black tracking-wide">{coupon.code}</div>
+                  <div className="mt-1 text-sm text-primary-500">
+                    {coupon?.value} {coupon?.couponType} off
+                  </div>
+                </div>
+                <StatusBadge status={coupon.status} />
+              </div>
+              <div className="mt-6 text-xs text-gray-400">Usage</div>
+              <div className="mt-1 text-sm font-bold">
+                {coupon?.usageCount}/{coupon?.usageLimit}
+              </div>
+              <div className="mt-4 flex gap-2">
+                {/* <Button size="sm" variant="outline" className="flex-1">
+                Edit
+              </Button> */}
+                <Button size="sm" variant="danger">
+                  Disable
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Suspense>
+      <Modal open={open} onOpenChange={setOpen} title="Create coupon">
+        <div className="grid gap-3">
+          <Input placeholder="Coupon code" />
+          <div className="grid grid-cols-2 gap-3">
+            <select className="h-10 rounded-xl border border-gray-200 px-3 text-sm">
+              <option>Percentage</option>
+              <option>Fixed amount</option>
+              <option>Free shipping</option>
+            </select>
+            <Input type="number" placeholder="Value" />
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <Input type="date" />
+            <Input type="date" />
+          </div>
+          <Input type="number" placeholder="Usage limit" />
+          <Button onClick={() => setOpen(false)}>Create coupon</Button>
+        </div>
+      </Modal>
+    </>
+  );
+}
