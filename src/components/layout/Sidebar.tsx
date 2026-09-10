@@ -33,7 +33,7 @@ export default function Sidebar({
     // [PackageSearch, "Inventory", "/inventory"],
     [Percent, "Coupons", "/coupons"],
     [BarChart3, "Analytics", "/analytics"],
-    [Star, "Reviews", "/reviews"],
+    // [Star, "Reviews", "/reviews"],
     // [Truck, "Shipping", "/shipping"],
     [WalletCards, "Payments", "/payments"],
     // [Headphones, "Support", "/support"],

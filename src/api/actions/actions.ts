@@ -98,6 +98,12 @@ class Actions {
 
   public createCoupon = async (data: unknown): Promise<GeneralCreate<Coupon>> =>
     await this.api.post("/trcs/coupon/create", data);
+
+  public getLoggedinAcc = async (): Promise<IUser> =>
+    await this.api.get("/accounts/get-loggedin-acc");
+
+  public updateAcc = async (data: unknown): Promise<DeleteUpdateResponse> =>
+    await this.api.patch("/accounts/update", data);
 }
 
 const actions = new Actions();
