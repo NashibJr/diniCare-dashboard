@@ -70,6 +70,18 @@ class Actions {
     await this.api.get(
       `/accounts/all?accType=user&limit=${limit}&page=${page}`,
     );
+
+  public getCustomerDetails = async (id: string): Promise<IUser> =>
+    await this.api.get(`/accounts/details/${id}`);
+
+  public getCustomerOrders = async (
+    page: number = 1,
+    limit = 100,
+    customerId: string,
+  ): Promise<GeneralQuery<Order>> =>
+    await this.api.get(
+      `/orders/get?page=${page}&limit=${limit}&customer=${customerId}`,
+    );
 }
 
 const actions = new Actions();
