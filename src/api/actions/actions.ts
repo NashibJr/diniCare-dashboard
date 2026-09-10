@@ -9,6 +9,7 @@ import {
   LoginResponse,
   Order,
   Product,
+  Transaction,
 } from "../../response.type";
 
 class Actions {
@@ -104,6 +105,12 @@ class Actions {
 
   public updateAcc = async (data: unknown): Promise<DeleteUpdateResponse> =>
     await this.api.patch("/accounts/update", data);
+
+  public getTransactions = async (
+    page: number = 1,
+    limit = 100,
+  ): Promise<GeneralQuery<Transaction>> =>
+    await this.api.get(`/orders/transactions/get?page=${page}&limit=${limit}`);
 }
 
 const actions = new Actions();

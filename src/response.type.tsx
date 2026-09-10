@@ -171,3 +171,19 @@ export interface Coupon {
   updatedAt: string;
   __v: number;
 }
+
+export interface Transaction {
+  _id: string;
+  transactionId: string;
+  customer?: IUser;
+  order?: string;
+  customerEmail?: string;
+  customerFullName?: string;
+  customerPhone?: string;
+  reference?: string;
+  amount: number;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  __v?: number;
+}
