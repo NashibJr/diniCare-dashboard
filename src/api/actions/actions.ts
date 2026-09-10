@@ -95,6 +95,9 @@ class Actions {
     data: unknown,
   ): Promise<DeleteUpdateResponse> =>
     await this.api.patch(`/trcs/coupon/update/${id}`, data);
+
+  public createCoupon = async (data: unknown): Promise<GeneralCreate<Coupon>> =>
+    await this.api.post("/trcs/coupon/create", data);
 }
 
 const actions = new Actions();
