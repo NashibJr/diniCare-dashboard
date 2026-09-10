@@ -3,6 +3,9 @@ import { Eye, EyeOff } from "lucide-react";
 import Modal from "../ui/Modal";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
+import { useMutation } from "@tanstack/react-query";
+import actions from "../../api/actions/actions";
+import Utils from "../../utils";
 
 interface ChangePasswordModalProps {
   open: boolean;
@@ -10,13 +13,11 @@ interface ChangePasswordModalProps {
 }
 
 interface PasswordForm {
-  currentPassword: string;
   newPassword: string;
   confirmPassword: string;
 }
 
 const initialForm: PasswordForm = {
-  currentPassword: "",
   newPassword: "",
   confirmPassword: "",
 };
@@ -26,8 +27,6 @@ export default function ChangePasswordModal({
   onOpenChange,
 }: ChangePasswordModalProps) {
   const [formValues, setFormValues] = useState<PasswordForm>(initialForm);
-
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
 
   const [showNewPassword, setShowNewPassword] = useState(false);
 
@@ -45,39 +44,31 @@ export default function ChangePasswordModal({
     onOpenChange(false);
   };
 
+  const updateMutation = useMutation({
+    mutationKey: ["update-account"],
+    mutationFn: async (data: unknown) => await actions.updateAcc(data),
+  });
   const handleSubmit = async () => {
-    if (
-      !formValues.currentPassword ||
-      !formValues.newPassword ||
-      !formValues.confirmPassword
-    ) {
+    if (!formValues.newPassword || !formValues.confirmPassword) {
       console.log("All password fields are required");
 
       return;
     }
 
     if (formValues.newPassword !== formValues.confirmPassword) {
-      console.log("Passwords do not match");
+      Utils.notify("Passwords do not match");
 
       return;
     }
 
-    const data = {
-      currentPassword: formValues.currentPassword,
-      newPassword: formValues.newPassword,
-    };
-
-    console.log("CHANGE PASSWORD DATA:", data);
-
-    /*
-      Add API here:
-
-      const response = await actions.changePassword(data);
-
-      Utils.notify(response.error, response.message, () => {
-        handleClose();
+    try {
+      const { error, message } = await updateMutation.mutateAsync({
+        password: formValues.newPassword,
       });
-    */
+      Utils.notify(error, message, () => onOpenChange(false));
+    } catch (error) {
+      Utils.notify("Something went wrong, please try again");
+    }
   };
 
   return (
@@ -94,29 +85,6 @@ export default function ChangePasswordModal({
       title="Change password"
     >
       <div className="grid gap-4">
-        <label className="text-sm font-semibold">
-          Current password
-          <div className="relative mt-2">
-            <Input
-              type={showCurrentPassword ? "text" : "password"}
-              placeholder="Enter current password"
-              value={formValues.currentPassword}
-              onChange={(event) =>
-                handleFormChange("currentPassword", event.target.value)
-              }
-              className="pr-10"
-            />
-
-            <button
-              type="button"
-              onClick={() => setShowCurrentPassword((prev) => !prev)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-            >
-              {showCurrentPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-            </button>
-          </div>
-        </label>
-
         <label className="text-sm font-semibold">
           New password
           <div className="relative mt-2">
@@ -168,7 +136,9 @@ export default function ChangePasswordModal({
             Cancel
           </Button>
 
-          <Button onClick={handleSubmit}>Change password</Button>
+          <Button onClick={handleSubmit} disabled={updateMutation.isPending}>
+            Change password
+          </Button>
         </div>
       </div>
     </Modal>
