@@ -7,7 +7,7 @@ import ProductsPage from "./pages/ProductsPage";
 import CategoriesPage from "./pages/CategoriesPage";
 import CustomersPage from "./pages/CustomersPage";
 import CustomerDetailsPage from "./pages/CustomerDetailsPage";
-import InventoryPage from "./pages/InventoryPage";
+// import InventoryPage from "./pages/InventoryPage";
 import CouponsPage from "./pages/CouponsPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import ReviewsPage from "./pages/ReviewsPage";

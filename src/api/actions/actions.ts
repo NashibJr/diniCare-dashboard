@@ -89,6 +89,12 @@ class Actions {
     limit: number = 100,
   ): Promise<GeneralQuery<Coupon>> =>
     await this.api.get(`/trcs/coupon/all?limit=${limit}&page=${page}`);
+
+  public disableCoupon = async (
+    id: string,
+    data: unknown,
+  ): Promise<DeleteUpdateResponse> =>
+    await this.api.patch(`/trcs/coupon/update/${id}`, data);
 }
 
 const actions = new Actions();
