@@ -48,7 +48,13 @@ class Actions {
 
   public createProduct = async (
     data: FormData,
-  ): Promise<GeneralCreate<Product>> => await this.api.post("/products/create");
+  ): Promise<GeneralCreate<Product>> =>
+    await this.api.post("/products/create", data);
+
+  public createCategory = async (
+    data: unknown,
+  ): Promise<GeneralCreate<Category>> =>
+    await this.api.post("/products/category/create", data);
 }
 
 const actions = new Actions();
