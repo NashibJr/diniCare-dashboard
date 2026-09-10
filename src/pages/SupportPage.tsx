@@ -1,0 +1,5 @@
+import PageHeader from "../components/common/PageHeader";
+import Badge from "../components/ui/Badge";
+import Button from "../components/ui/Button";
+
+export default function SupportPage(){const tickets=[{id:"TKT-1042",subject:"Order delayed",customer:"John Doe",priority:"High"},{id:"TKT-1041",subject:"Refund request",customer:"Emily Davis",priority:"Medium"},{id:"TKT-1040",subject:"Cannot update address",customer:"Jane Smith",priority:"Low"}];return <><PageHeader title="Customer support" subtitle="Manage shopping questions, order issues and service requests."/><div className="grid gap-4">{tickets.map(ticket=><div key={ticket.id} className="flex flex-col gap-4 rounded-2xl border border-gray-100 bg-white p-5 sm:flex-row sm:items-center sm:justify-between"><div><div className="flex items-center gap-3"><span className="font-black text-primary-500">{ticket.id}</span><Badge>{ticket.priority}</Badge></div><h2 className="mt-2 font-bold">{ticket.subject}</h2><p className="text-sm text-gray-400">{ticket.customer}</p></div><Button variant="outline">Open ticket</Button></div>)}</div></>}

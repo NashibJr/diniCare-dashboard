@@ -1,0 +1,8 @@
+import {Edit3,Plus,Trash2} from "lucide-react";
+import {useState} from "react";
+import PageHeader from "../components/common/PageHeader";
+import Button from "../components/ui/Button";
+import Modal from "../components/ui/Modal";
+import Input from "../components/ui/Input";
+
+export default function CategoriesPage(){const[open,setOpen]=useState(false);const categories=["Electronics","Fashion","Home & Living","Beauty","Sports","Baby & Kids"];return <><PageHeader title="Categories" subtitle="Organize products into shopper-friendly groups." actions={<Button onClick={()=>setOpen(true)}><Plus size={16}/>Add category</Button>}/><div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{categories.map((category,index)=><div key={category} className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm"><div className="flex items-start justify-between"><div><div className="font-black">{category}</div><div className="mt-1 text-sm text-gray-400">{120-index*13} products</div></div><div className="flex gap-1"><button className="rounded-lg p-2 text-gray-500 hover:bg-gray-100" onClick={()=>setOpen(true)}><Edit3 size={16}/></button><button className="rounded-lg p-2 text-gray-500 hover:bg-red-50 hover:text-red-500"><Trash2 size={16}/></button></div></div><div className="mt-5 h-2 overflow-hidden rounded-full bg-gray-100"><div className="h-full rounded-full bg-primary-500" style={{width:`${80-index*8}%`}}/></div></div>)}</div><Modal open={open} onOpenChange={setOpen} title="Add / edit category"><div className="grid gap-3"><Input placeholder="Category name"/><Input placeholder="Slug e.g. electronics"/><Input placeholder="Description"/><Button onClick={()=>setOpen(false)}>Save category</Button></div></Modal></>}

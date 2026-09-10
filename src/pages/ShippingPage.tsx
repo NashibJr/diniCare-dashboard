@@ -1,0 +1,5 @@
+import {Plus,Truck} from "lucide-react";
+import PageHeader from "../components/common/PageHeader";
+import Button from "../components/ui/Button";
+
+export default function ShippingPage(){return <><PageHeader title="Shipping" subtitle="Configure delivery zones, carriers and service levels." actions={<Button><Plus size={16}/>Add shipping method</Button>}/><div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">{[["Standard delivery","3–5 days","Free over $50"],["Express delivery","1–2 days","$12.00"],["Same-day","Selected areas","$20.00"]].map(([name,time,price])=><div key={name} className="rounded-2xl border border-gray-100 bg-white p-5"><div className="grid h-11 w-11 place-items-center rounded-xl bg-primary-50 text-primary-500"><Truck size={20}/></div><h2 className="mt-4 font-black">{name}</h2><div className="mt-2 text-sm text-gray-500">{time}</div><div className="mt-1 text-sm font-bold">{price}</div><Button className="mt-5" size="sm" variant="outline">Edit method</Button></div>)}</div></>}

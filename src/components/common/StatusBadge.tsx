@@ -1,0 +1,2 @@
+import Badge from "../ui/Badge";
+export default function StatusBadge({status}:{status:string}){const style=status==="Delivered"||status==="Active"||status==="Paid"?"bg-emerald-50 text-emerald-700":status==="Shipped"?"bg-blue-50 text-blue-700":status==="Processing"||status==="Pending"?"bg-amber-50 text-amber-700":status==="Cancelled"||status==="Blocked"||status==="Out of stock"?"bg-red-50 text-red-700":"bg-orange-50 text-orange-700";return <Badge className={style}>{status}</Badge>}

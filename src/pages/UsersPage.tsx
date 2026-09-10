@@ -1,0 +1,9 @@
+import {Plus} from "lucide-react";
+import {useState} from "react";
+import PageHeader from "../components/common/PageHeader";
+import Button from "../components/ui/Button";
+import Modal from "../components/ui/Modal";
+import Input from "../components/ui/Input";
+import StatusBadge from "../components/common/StatusBadge";
+
+export default function UsersPage(){const[open,setOpen]=useState(false);const users=[{name:"Admin User",role:"Super Admin",status:"Active"},{name:"Alice Morgan",role:"Store Admin",status:"Active"},{name:"Mark Benson",role:"Support",status:"Active"},{name:"Sarah Cole",role:"Analyst",status:"Active"}];return <><PageHeader title="Users & roles" subtitle="Manage back-office access and staff responsibilities." actions={<Button onClick={()=>setOpen(true)}><Plus size={16}/>Add user</Button>}/><div className="overflow-x-auto rounded-2xl border border-gray-100 bg-white"><table className="min-w-[700px] w-full text-left text-sm"><thead className="bg-gray-50 text-xs uppercase text-gray-400"><tr><th className="px-5 py-3">User</th><th className="px-5 py-3">Role</th><th className="px-5 py-3">Status</th><th className="px-5 py-3">Action</th></tr></thead><tbody>{users.map(user=><tr key={user.name} className="border-t border-gray-100"><td className="px-5 py-4 font-bold">{user.name}</td><td className="px-5 py-4 text-gray-500">{user.role}</td><td className="px-5 py-4"><StatusBadge status={user.status}/></td><td className="px-5 py-4"><Button size="sm" variant="outline">Edit</Button></td></tr>)}</tbody></table></div><Modal open={open} onOpenChange={setOpen} title="Add admin user"><div className="grid gap-3"><Input placeholder="Full name"/><Input placeholder="Email" type="email"/><select className="h-10 rounded-xl border border-gray-200 px-3 text-sm"><option>Store Admin</option><option>Support</option><option>Analyst</option></select><Button onClick={()=>setOpen(false)}>Invite user</Button></div></Modal></>}

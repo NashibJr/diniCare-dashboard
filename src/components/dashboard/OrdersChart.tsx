@@ -1,0 +1,3 @@
+import {ResponsiveContainer,BarChart,Bar,CartesianGrid,XAxis,YAxis,Tooltip} from "recharts";
+import {salesData} from "../../data/mock";
+export default function OrdersChart(){return <div className="h-72 w-full"><ResponsiveContainer width="100%" height="100%"><BarChart data={salesData} margin={{top:10,right:10,left:-20,bottom:0}}><CartesianGrid strokeDasharray="3 3" vertical={false}/><XAxis dataKey="name" tickLine={false} axisLine={false} tick={{fontSize:12}}/><YAxis tickLine={false} axisLine={false} tick={{fontSize:12}}/><Tooltip/><Bar dataKey="orders" fill="#f8c700" radius={[8,8,0,0]}/></BarChart></ResponsiveContainer></div>}

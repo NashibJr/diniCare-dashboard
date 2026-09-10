@@ -1,0 +1,2 @@
+import Button from "../components/ui/Button";
+export default function NotFoundPage(){return <div className="py-24 text-center"><div className="text-7xl font-black text-primary-100">404</div><h1 className="mt-4 text-2xl font-black">Admin page not found</h1><p className="mt-2 text-sm text-gray-500">The requested management page does not exist.</p><a href="/" className="mt-6 inline-block"><Button>Back to dashboard</Button></a></div>}
