@@ -1,5 +1,10 @@
 import Api from "..";
-import { GeneralQuery, LoginResponse, Order } from "../../response.type";
+import {
+  GeneralQuery,
+  LoginResponse,
+  Order,
+  Product,
+} from "../../response.type";
 
 class Actions {
   private api: Api;
@@ -19,6 +24,12 @@ class Actions {
 
   public getOrderDetails = async (orderId: string): Promise<Order> =>
     await this.api.get(`/orders/details/${orderId}`);
+
+  public getProducts = async (
+    page: number = 1,
+    limit: number = 100,
+  ): Promise<GeneralQuery<Product>> =>
+    await this.api.get(`/products/all?limit=${limit}&page=${page}`);
 }
 
 const actions = new Actions();
