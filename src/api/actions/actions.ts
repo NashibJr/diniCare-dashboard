@@ -4,6 +4,7 @@ import {
   DeleteUpdateResponse,
   GeneralCreate,
   GeneralQuery,
+  IUser,
   LoginResponse,
   Order,
   Product,
@@ -61,6 +62,14 @@ class Actions {
     id: string,
   ): Promise<DeleteUpdateResponse> =>
     await this.api.post(`/products/category/update/${id}`, data);
+
+  public getCustomers = async (
+    page: number = 1,
+    limit: number = 100,
+  ): Promise<GeneralQuery<IUser>> =>
+    await this.api.get(
+      `/accounts/all?accType=user&limit=${limit}&page=${page}`,
+    );
 }
 
 const actions = new Actions();
