@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Edit3, Plus, Trash2 } from "lucide-react";
+import { Edit3, Plus } from "lucide-react";
 import PageHeader from "../components/common/PageHeader";
 import Button from "../components/ui/Button";
 import Modal from "../components/ui/Modal";
@@ -147,12 +147,12 @@ export default function CategoriesPage() {
                     <Edit3 size={16} />
                   </button>
 
-                  <button
+                  {/* <button
                     type="button"
                     className="rounded-lg p-2 text-gray-500 hover:bg-red-50 hover:text-red-500"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
