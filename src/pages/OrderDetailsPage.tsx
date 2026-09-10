@@ -31,7 +31,7 @@ export default function OrderDetailsPage() {
           <Card className="p-5">
             <div className="flex items-center justify-between">
               <h2 className="font-black">Order items</h2>
-              <StatusBadge status="Delivered" />
+              <StatusBadge status={data?.status ?? "N/A"} />
             </div>
             <div className="mt-4 grid gap-4">
               {(data?.items ?? []).slice(0, 3).map((item) => (
