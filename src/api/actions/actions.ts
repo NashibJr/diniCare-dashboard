@@ -2,6 +2,7 @@ import Api from "..";
 import {
   Category,
   DeleteUpdateResponse,
+  GeneralCreate,
   GeneralQuery,
   LoginResponse,
   Order,
@@ -44,6 +45,10 @@ class Actions {
 
   public getCategories = async (): Promise<Category[]> =>
     await this.api.get("/products/category/get");
+
+  public createProduct = async (
+    data: FormData,
+  ): Promise<GeneralCreate<Product>> => await this.api.post("/products/create");
 }
 
 const actions = new Actions();

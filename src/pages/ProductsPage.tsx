@@ -123,6 +123,10 @@ export default function ProductsPage() {
     mutationFn: async (data: FormData) =>
       await actions.updateProduct(selectedProduct?._id!, data),
   });
+  const createProductMutation = useMutation({
+    mutationKey: ["create-product"],
+    mutationFn: async (data: FormData) => await actions.createProduct(data),
+  });
   const handleSubmit = React.useCallback(async () => {
     const formData = new FormData();
 
@@ -138,22 +142,41 @@ export default function ProductsPage() {
       formData.append("images", image);
     });
 
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+
     if (selectedProduct?._id) {
       formData.append("productId", selectedProduct._id);
     }
 
     try {
-      const { error, message } =
-        await updateProductMutation.mutateAsync(formData);
-      Utils.notify(error, message, () => {
+      if (selectedProduct) {
+        const { error, message } =
+          await updateProductMutation.mutateAsync(formData);
+        Utils.notify(error, message, () => {
+          setOpen(false);
+          setSelectedProduct(null);
+          refetch();
+        });
+
+        return;
+      }
+
+      const createResponse = await createProductMutation.mutateAsync(formData);
+      Utils.notify(createResponse.error, createResponse.message, () => {
         setOpen(false);
-        setSelectedProduct(null);
         refetch();
       });
     } catch (error) {
       Utils.notify("Something went wrong, please try again later");
     }
-  }, [editForm, selectedProduct?._id, updateProductMutation]);
+  }, [
+    editForm,
+    selectedProduct?._id,
+    updateProductMutation,
+    createProductMutation,
+  ]);
 
   const handleAddProduct = () => {
     setSelectedProduct(null);
@@ -432,7 +455,9 @@ export default function ProductsPage() {
 
           <Button
             onClick={handleSubmit}
-            disabled={updateProductMutation.isPending}
+            disabled={
+              updateProductMutation.isPending || createProductMutation.isPending
+            }
           >
             {selectedProduct ? "Update product" : "Save product"}
           </Button>

@@ -46,6 +46,9 @@ export type Category = {
   name: string;
   createdAt: string;
   updatedAt: string;
+  slung: string;
+  description: string;
+  totalProducts: number;
   __v: number;
 };
 
