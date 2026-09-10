@@ -160,8 +160,6 @@ export default function CouponsPage() {
       usageLimit: Number(usageLimit),
     };
 
-    console.log("COUPON DATA:", payload);
-
     try {
       const { error, message } =
         await createCouponMutation.mutateAsync(payload);
