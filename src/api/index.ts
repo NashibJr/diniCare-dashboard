@@ -74,6 +74,9 @@ export default class Api {
   public get = async <T>(url: string, headers?: AxiosHeaders): Promise<T> =>
     await this.api({ method: "GET", url, headers });
 
+  public delete = async <T>(url: string, headers?: AxiosHeaders): Promise<T> =>
+    await this.api({ method: "GET", url, headers });
+
   public patch = async <T>(url: string, data?: unknown): Promise<T> =>
     await this.api<T>({ url, data, method: "PATCH" });
 }

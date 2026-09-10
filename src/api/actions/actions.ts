@@ -1,5 +1,6 @@
 import Api from "..";
 import {
+  DeleteUpdateResponse,
   GeneralQuery,
   LoginResponse,
   Order,
@@ -30,6 +31,9 @@ class Actions {
     limit: number = 100,
   ): Promise<GeneralQuery<Product>> =>
     await this.api.get(`/products/all?limit=${limit}&page=${page}`);
+
+  public deleteProduct = async (id: string): Promise<DeleteUpdateResponse> =>
+    await this.api.delete(`/products/delete/${id}`);
 }
 
 const actions = new Actions();

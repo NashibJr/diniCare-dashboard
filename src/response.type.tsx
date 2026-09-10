@@ -147,3 +147,10 @@ export interface IUser {
   createdAt: string;
   updatedAt: string;
 }
+
+export type DeleteUpdateResponse = {
+  deleteCount?: number;
+  matchedCount?: number;
+  message?: string;
+  error?: string;
+};

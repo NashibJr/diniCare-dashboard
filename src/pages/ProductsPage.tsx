@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import { Edit3, Plus, Search, Trash2 } from "lucide-react";
-import { useState } from "react";
 import PageHeader from "../components/common/PageHeader";
 import DataTableShell from "../components/common/DataTableShell";
 import StatusBadge from "../components/common/StatusBadge";
@@ -7,14 +7,19 @@ import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import Modal from "../components/ui/Modal";
 import Textarea from "../components/ui/Textarea";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import actions from "../api/actions/actions";
 import Suspense from "../components/common/Suspense";
 import Utils from "../utils";
+import { Product } from "../response.type";
 
 export default function ProductsPage() {
   const [open, setOpen] = useState(false);
   const [remove, setRemove] = useState(false);
+
+  const [selectedProduct, setSelectedProduct] = React.useState<Product | null>(
+    null,
+  );
 
   const { data, isLoading } = useQuery({
     queryKey: ["get-products"],
@@ -24,6 +29,18 @@ export default function ProductsPage() {
       return Array.isArray(response.data) ? response.data : [];
     },
   });
+
+  const deleteProductMutation = useMutation({
+    mutationKey: ["delete-product", selectedProduct?._id],
+    mutationFn: async () => await actions.deleteProduct(selectedProduct?._id!),
+  });
+  const handleDelete = React.useCallback(async () => {
+    const { error, message } = await deleteProductMutation.mutateAsync();
+    Utils.notify(error, message, () => {
+      setSelectedProduct(null);
+      setRemove(false);
+    });
+  }, [selectedProduct, deleteProductMutation]);
 
   return (
     <>
@@ -95,13 +112,19 @@ export default function ProductsPage() {
                   <td className="px-5 py-4">
                     <div className="flex gap-2">
                       <button
-                        onClick={() => setOpen(true)}
+                        onClick={() => {
+                          setSelectedProduct(item);
+                          setOpen(true);
+                        }}
                         className="rounded-lg p-2 text-gray-500 hover:bg-primary-50 hover:text-primary-500"
                       >
                         <Edit3 size={16} />
                       </button>
                       <button
-                        onClick={() => setRemove(true)}
+                        onClick={() => {
+                          setSelectedProduct(item);
+                          setRemove(true);
+                        }}
                         className="rounded-lg p-2 text-gray-500 hover:bg-red-50 hover:text-red-500"
                       >
                         <Trash2 size={16} />
@@ -166,10 +189,20 @@ export default function ProductsPage() {
           deactivate it if you want to keep historical data.
         </p>
         <div className="mt-5 flex justify-end gap-2">
-          <Button variant="outline" onClick={() => setRemove(false)}>
+          <Button
+            variant="outline"
+            onClick={() => {
+              setRemove(false);
+              setSelectedProduct(null);
+            }}
+          >
             Cancel
           </Button>
-          <Button variant="danger" onClick={() => setRemove(false)}>
+          <Button
+            disabled={deleteProductMutation.isPending}
+            variant="danger"
+            onClick={handleDelete}
+          >
             Delete
           </Button>
         </div>
