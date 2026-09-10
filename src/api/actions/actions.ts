@@ -55,6 +55,12 @@ class Actions {
     data: unknown,
   ): Promise<GeneralCreate<Category>> =>
     await this.api.post("/products/category/create", data);
+
+  public updateCategory = async (
+    data: unknown,
+    id: string,
+  ): Promise<DeleteUpdateResponse> =>
+    await this.api.post(`/products/category/update/${id}`, data);
 }
 
 const actions = new Actions();
