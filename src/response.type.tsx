@@ -57,6 +57,7 @@ export type Product = {
   price: number;
   status: string;
   sku: string;
+  description: string;
   stock: number;
   createdAt: string | Date;
   updatedAt: string | Date;

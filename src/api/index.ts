@@ -1,11 +1,10 @@
 import axios, { AxiosError, AxiosHeaders } from "axios";
 
-const token = localStorage.getItem("token");
-
 axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_URL;
 
 axios.interceptors.request.use(
   (config) => {
+    const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -18,6 +17,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
+    const token = localStorage.getItem("token");
     if (error.status === 401 && token !== null) {
       localStorage.clear();
       window.location.href = "/login";

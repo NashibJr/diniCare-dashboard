@@ -1,5 +1,6 @@
 import Api from "..";
 import {
+  Category,
   DeleteUpdateResponse,
   GeneralQuery,
   LoginResponse,
@@ -34,6 +35,15 @@ class Actions {
 
   public deleteProduct = async (id: string): Promise<DeleteUpdateResponse> =>
     await this.api.delete(`/products/delete/${id}`);
+
+  public updateProduct = async (
+    id: string,
+    data: unknown,
+  ): Promise<DeleteUpdateResponse> =>
+    await this.api.patch(`/products/update/${id}`, data);
+
+  public getCategories = async (): Promise<Category[]> =>
+    await this.api.get("/products/category/get");
 }
 
 const actions = new Actions();
