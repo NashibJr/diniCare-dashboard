@@ -51,7 +51,7 @@ const LoginForm = () => {
   return (
     <div className="w-full max-w-110">
       <div className="lg:hidden">
-        <h1 className="text-2xl font-bold text-[#ff1f8f]">ShopHub</h1>
+        <h1 className="text-2xl font-bold text-[#ff1f8f]">DigniCare </h1>
 
         <p className="mt-1 text-xs tracking-[0.3em] text-[#667085]">
           ADMIN CONSOLE
@@ -77,7 +77,7 @@ const LoginForm = () => {
           label="Email address"
           type="email"
           required
-          placeholder="admin@shophub.com"
+          placeholder="admin@DigniCare .com"
           value={values.email}
           onChange={(event) =>
             setValues((previous) => ({
@@ -134,13 +134,13 @@ const LoginForm = () => {
 
       <div className="mt-6 rounded-lg bg-[#F9FAFB] p-4 text-center">
         <p className="text-xs leading-5 text-[#667085]">
-          Access to ShopHub Admin Console is restricted to authorized
+          Access to DigniCare Admin Console is restricted to authorized
           administrators.
         </p>
       </div>
 
       <p className="mt-8 text-center text-xs text-[#98A2B3] lg:hidden">
-        © 2026 ShopHub. All rights reserved.
+        © 2026 DigniCare . All rights reserved.
       </p>
     </div>
   );

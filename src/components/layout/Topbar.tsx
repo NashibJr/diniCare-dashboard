@@ -1,3 +1,39 @@
-import {Bell,Menu,Search} from "lucide-react";
+import { Bell, Menu, Search } from "lucide-react";
 import Input from "../ui/Input";
-export default function Topbar({onMenu}:{onMenu:()=>void}){return <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-gray-100 bg-white/95 px-4 backdrop-blur sm:px-6"><button className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 lg:hidden" onClick={onMenu}><Menu size={20}/></button><div className="hidden max-w-sm flex-1 items-center gap-2 rounded-xl bg-gray-50 px-3 md:flex"><Search size={17} className="text-gray-400"/><Input className="border-0 bg-transparent px-0 focus:ring-0" placeholder="Search anything..."/></div><div className="ml-auto flex items-center gap-2"><button className="relative rounded-xl p-2 text-gray-500 hover:bg-gray-100"><Bell size={20}/><span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-primary-500"/></button><div className="flex items-center gap-3 rounded-xl border border-gray-100 px-2 py-1.5"><div className="grid h-8 w-8 place-items-center rounded-lg bg-primary-50 text-sm font-black text-primary-600">AD</div><div className="hidden sm:block"><div className="text-xs font-bold">Admin User</div><div className="text-[10px] text-gray-400">Super Admin</div></div></div></div></header>}
+
+export default function Topbar({ onMenu }: { onMenu: () => void }) {
+  const session = JSON.parse(localStorage.getItem("session") ?? "");
+
+  return (
+    <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-gray-100 bg-white/95 px-4 backdrop-blur sm:px-6">
+      <button
+        className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 lg:hidden"
+        onClick={onMenu}
+      >
+        <Menu size={20} />
+      </button>
+      <div className="hidden max-w-sm flex-1 items-center gap-2 rounded-xl bg-gray-50 px-3 md:flex">
+        <Search size={17} className="text-gray-400" />
+        <Input
+          className="border-0 bg-transparent px-0 focus:ring-0"
+          placeholder="Search anything..."
+        />
+      </div>
+      <div className="ml-auto flex items-center gap-2">
+        <button className="relative rounded-xl p-2 text-gray-500 hover:bg-gray-100">
+          <Bell size={20} />
+          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-primary-500" />
+        </button>
+        <div className="flex items-center gap-3 rounded-xl border border-gray-100 px-2 py-1.5">
+          <div className="grid h-8 w-8 place-items-center rounded-lg bg-primary-50 text-sm font-black text-primary-600">
+            AD
+          </div>
+          <div className="hidden sm:block">
+            <div className="text-xs font-bold">{`${session?.data?.firstName} ${session?.data?.lastName}`}</div>
+            <div className="text-[10px] text-gray-400">Admin</div>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}

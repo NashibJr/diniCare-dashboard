@@ -1,4 +1,4 @@
-# ShopHub Admin Dashboard
+# DigniCare Admin Dashboard
 
 Responsive management dashboard built with React, Vite, TypeScript, Tailwind CSS, pnpm, shadcn-style Radix primitives and Recharts.
 

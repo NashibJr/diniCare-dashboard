@@ -7,7 +7,7 @@ const LoginBrandPanel = () => {
       <div className="absolute -right-16 bottom-20 h-80 w-80 rounded-full bg-[#ff1f8f]/10 blur-3xl" />
 
       <div className="relative z-10">
-        <h1 className="text-3xl font-bold text-[#ff1f8f]">ShopHub</h1>
+        <h1 className="text-3xl font-bold text-[#ff1f8f]">DigniCare </h1>
 
         <p className="mt-1 text-xs tracking-[0.35em] text-slate-400">
           ADMIN CONSOLE
@@ -56,7 +56,7 @@ const LoginBrandPanel = () => {
       </div>
 
       <p className="relative z-10 text-xs text-slate-500">
-        © 2026 ShopHub. All rights reserved.
+        © 2026 DigniCare . All rights reserved.
       </p>
     </div>
   );

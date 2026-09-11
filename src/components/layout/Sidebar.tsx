@@ -42,7 +42,9 @@ export default function Sidebar({ open, onClose }: SidebarTypes) {
       >
         <div className="flex h-16 items-center justify-between border-b border-white/10 px-5">
           <div>
-            <div className="text-lg font-black text-primary-400">ShopHub</div>
+            <div className="text-lg font-black text-primary-400">
+              DigniCare{" "}
+            </div>
             <div className="text-[10px] uppercase tracking-[0.18em] text-gray-500">
               Admin console
             </div>
