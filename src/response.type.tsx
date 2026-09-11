@@ -187,3 +187,31 @@ export interface Transaction {
   updatedAt: string;
   __v?: number;
 }
+
+interface MetricWithChange {
+  value: number;
+  change: number; // percentage change (e.g. 100 = +100%)
+}
+
+interface SalesOverviewPoint {
+  date: string; // "YYYY-MM-DD"
+  label: string; // "Mon", "Tue", ...
+  sales: number;
+}
+
+interface TopCategory {
+  // shape unknown from your sample (empty array)
+  _id: string;
+  name: string;
+  sales?: number;
+  percentage?: number;
+}
+
+export interface DashboardStats {
+  totalSales: MetricWithChange;
+  totalOrders: MetricWithChange;
+  customers: MetricWithChange;
+  products: MetricWithChange;
+  salesOverview: SalesOverviewPoint[];
+  topCategories: TopCategory[];
+}

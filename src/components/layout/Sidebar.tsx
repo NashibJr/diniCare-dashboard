@@ -1,5 +1,4 @@
 import {
-  BarChart3,
   Boxes,
   ClipboardList,
   FolderTree,
@@ -20,7 +19,6 @@ const items = [
   [FolderTree, "Categories", "/categories"],
   [Users, "Customers", "/customers"],
   [Percent, "Coupons", "/coupons"],
-  [BarChart3, "Analytics", "/analytics"],
   [WalletCards, "Payments", "/payments"],
   [Settings, "Settings", "/settings"],
 ] as const;

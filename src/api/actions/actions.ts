@@ -2,6 +2,7 @@ import Api from "..";
 import {
   Category,
   Coupon,
+  DashboardStats,
   DeleteUpdateResponse,
   GeneralCreate,
   GeneralQuery,
@@ -111,6 +112,9 @@ class Actions {
     limit = 100,
   ): Promise<GeneralQuery<Transaction>> =>
     await this.api.get(`/orders/transactions/get?page=${page}&limit=${limit}`);
+
+  public getDashboardMetrics = async (): Promise<DashboardStats> =>
+    await this.api.get("/orders/dashbaord-metrics");
 }
 
 const actions = new Actions();
