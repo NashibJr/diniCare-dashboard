@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosHeaders } from "axios";
 
-axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_URL;
+axios.defaults.baseURL = "https://dinicare-backend.onrender.com/api/v1";
 
 axios.interceptors.request.use(
   (config) => {
